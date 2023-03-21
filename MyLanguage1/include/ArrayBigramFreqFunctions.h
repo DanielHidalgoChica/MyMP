@@ -26,7 +26,7 @@
  * @param dim The capacity of the array. Input parameter
  * @param nElements The number of elements used by the array. Output parameter
 */
-void readArrayBigramFreq(BigramFreq array[], int dim, int nElements);
+void readArrayBigramFreq(BigramFreq array[], const int dim, int & nElements);
 
 /**
  * @brief Prints in the standard output the number of used elements and the 
@@ -34,7 +34,7 @@ void readArrayBigramFreq(BigramFreq array[], int dim, int nElements);
  * @param array The array of BigramFreq to be printed. Input parameter
  * @param nElements The number of elements used by the array. Input parameter
 */
-void printArrayBigramFreq(BigramFreq array[], int nElements);
+void printArrayBigramFreq(const BigramFreq array[], const int nElements);
 
 /**
  * @brief Swaps the elements at positions @p first and @p second in the given
@@ -46,8 +46,8 @@ void printArrayBigramFreq(BigramFreq array[], int nElements);
  * @throw Throws a std::out_of_range exception if first or second are positions 
  * out of the range of the given array
 */
-void swapElementsArrayBigramFreq(BigramFreq array[], int nElements, int first,
-                int second);
+void swapElementsArrayBigramFreq(BigramFreq array[], const int nElements, 
+        const int first, const int second);
 
 
 /**
@@ -56,14 +56,14 @@ void swapElementsArrayBigramFreq(BigramFreq array[], int nElements, int first,
  * @param array The array of BigramFreq. Input/Output parameter
  * @param nElements The number of elements used by the array. Input parameter
 */
-void sortArrayBigramFreq(BigramFreq array[], int nElements);
+void sortArrayBigramFreq(BigramFreq array[], const int nElements);
 
 /**
  * @brief Converts to uppercase all the bigrams within the given array
  * @param array An array of BigramFreq objects. Input/Output parameter
  * @param nElements The number of elements in the array. Input parameter
  */
-void toUpperArrayBigramFreq(BigramFreq array[], int nElements);
+void toUpperArrayBigramFreq(BigramFreq array[], const int nElements);
 
 #endif /* ARRAYBIGRAMFREQFUNCTIONS_H */
 

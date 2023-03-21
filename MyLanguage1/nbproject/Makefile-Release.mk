@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/ArrayBigramFreqFunctions.o \
 	${OBJECTDIR}/src/Bigram.o \
 	${OBJECTDIR}/src/BigramFreq.o \
 	${OBJECTDIR}/src/main.o
@@ -63,6 +64,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mylanguage1: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mylanguage1 ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/src/ArrayBigramFreqFunctions.o: src/ArrayBigramFreqFunctions.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ArrayBigramFreqFunctions.o src/ArrayBigramFreqFunctions.cpp
 
 ${OBJECTDIR}/src/Bigram.o: src/Bigram.cpp
 	${MKDIR} -p ${OBJECTDIR}/src

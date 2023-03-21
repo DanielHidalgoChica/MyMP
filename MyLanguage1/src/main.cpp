@@ -22,7 +22,41 @@
  * Running example:
  * > language1 < data/miniquijotebigrams.txt 
  */
-int main(int argc, char* argv[]) {
 
+
+#include <string>
+#include <cstring>
+
+#include "Bigram.h"
+#include "BigramFreq.h"
+#include "ArrayBigramFreqFunctions.h"
+
+using namespace std;
+
+int main() {
+    // Read the number of elements
+    
+    int nElements;
+    
+    int DIM = 1000;
+    
+    BigramFreq bigram_freq_array[DIM];
+    
+    // Read of the array of BigramFreq's
+    
+    readArrayBigramFreq(bigram_freq_array,DIM,nElements);
+    
+    // Sort
+    
+    sortArrayBigramFreq(bigram_freq_array,nElements);
+    
+    // Turn it to uppercase
+    
+    toUpperArrayBigramFreq(bigram_freq_array,nElements);
+    
+    // Print
+    
+    printArrayBigramFreq(bigram_freq_array,nElements);
+    
 }
 
