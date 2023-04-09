@@ -47,6 +47,7 @@ int main(int argc, char* argv[]) {
     
 //    Language language;
     ifstream inputStream;
+    
     string cadena_magica;
     string language_id;
     string bigram_str;
