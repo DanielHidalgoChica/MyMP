@@ -30,7 +30,12 @@ void BigramFreq::setBigram(const Bigram & bigram) {
 }
 
 void BigramFreq::setFrequency(const int frequency) {
-    _frequency = frequency;
+    
+    const string MSG_EXC = "In Method void BigramFreq::setFrequency(const int frequency)\""
+                           " negative frequency";
+    
+    if (frequency < 0) throw std::out_of_range (MSG_EXC);
+    else _frequency = frequency;
 }
 
 std::string BigramFreq::toString() const {

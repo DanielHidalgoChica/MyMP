@@ -27,10 +27,9 @@ using namespace std;
 
 const string Language::MAGIC_STRING_T="MP-LANGUAGE-T-1.0";
 
-Language::Language() : _languageId("unknown"), _vectorBigramFreq[DIM_VECTOR_BIGRAM_FREQ],
-                       _size(0) {}
-Language::Language(int numberBigrams) : _languageId("unknown"), _vectorBigramFreq[DIM_VECTOR_BIGRAM_FREQ],
-                                        _size(0) 
+Language::Language() : _languageId("unknown"), _size(0) {}
+
+Language::Language(int numberBigrams) : _languageId("unknown"), _size(0) 
 {
     if (numberBigrams < 0 || numberBigrams > DIM_VECTOR_BIGRAM_FREQ)
         throw std::out_of_range("In constructor: too many Bigrams");
@@ -43,7 +42,7 @@ Language::Language(int numberBigrams) : _languageId("unknown"), _vectorBigramFre
 
 const string & Language::getLanguageId() const {return _languageId;}
 
-void Language::SetLanguageId(string id) {_languageId = id;}
+void Language::setLanguageId(string id) {_languageId = id;}
 
 const BigramFreq & Language::at(int index) const {
     bool wrong_index = index < 0 || index >= _size;
@@ -77,7 +76,7 @@ int Language::findBigram(Bigram bigram) const {
     int pos = -1;
     
     while (!found && c < _size) {
-        found = (_vectorBigramFreq[c]->getBigram()->getText() == bigram_str);
+        found = (_vectorBigramFreq[c].getBigram().getText() == bigram_str);
         if (!found) c++;
         else pos = c;
     }
@@ -85,7 +84,7 @@ int Language::findBigram(Bigram bigram) const {
     return(pos);
 }
 
-std:string Language::toString() const {
+std::string Language::toString() const {
     string str = "";
     
     str = to_string(_size);
@@ -98,35 +97,36 @@ std:string Language::toString() const {
     return(str);
 }
 
+
 void Language::sort() {
     // We'll sort the array using a selection algorithm
 
     for (int left = 0; left < _size - 1; left++) {
 
-        int max_freq = array[left].getFrequency();
+        int max_freq = _vectorBigramFreq[left].getFrequency();
         int pos_max = left;
 
         bool swap_needed = false;
 
         for (int i = left + 1; i < _size; i++) {
 
-            bool new_max = array[i].getFrequency() > max_freq || ((array[i].getFrequency()
-                    == max_freq && array[i].getBigram().getText()
-                    < array[pos_max].getBigram().getText()));
+            bool new_max = _vectorBigramFreq[i].getFrequency() > max_freq || ((_vectorBigramFreq[i].getFrequency()
+                    == max_freq && _vectorBigramFreq[i].getBigram().getText()
+                    < _vectorBigramFreq[pos_max].getBigram().getText()));
 
             if (new_max) {
 
                 swap_needed = true;
 
-                max_freq = array[i].getFrequency();
+                max_freq = _vectorBigramFreq[i].getFrequency();
                 pos_max = i;
             }
         }
 
         if (swap_needed) {
-            BigramFreq aux = array[first];
-            array[first] = array[second];
-            array[second] = aux;
+            BigramFreq aux = _vectorBigramFreq[left];
+            _vectorBigramFreq[left] = _vectorBigramFreq[pos_max];
+            _vectorBigramFreq[pos_max] = aux;
         }
 
     }

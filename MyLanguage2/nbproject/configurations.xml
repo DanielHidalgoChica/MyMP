@@ -19,6 +19,7 @@
       <itemPath>src/ArrayBigramFreqFunctions.cpp</itemPath>
       <itemPath>src/Bigram.cpp</itemPath>
       <itemPath>src/BigramFreq.cpp</itemPath>
+      <itemPath>src/Language.cpp</itemPath>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -66,6 +67,8 @@
       </item>
       <item path="src/BigramFreq.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/Language.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -103,6 +106,8 @@
       <item path="src/Bigram.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BigramFreq.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Language.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>

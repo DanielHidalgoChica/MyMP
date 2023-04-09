@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/ArrayBigramFreqFunctions.o \
 	${OBJECTDIR}/src/Bigram.o \
 	${OBJECTDIR}/src/BigramFreq.o \
+	${OBJECTDIR}/src/Language.o \
 	${OBJECTDIR}/src/main.o
 
 
@@ -79,6 +80,11 @@ ${OBJECTDIR}/src/BigramFreq.o: src/BigramFreq.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/BigramFreq.o src/BigramFreq.cpp
+
+${OBJECTDIR}/src/Language.o: src/Language.cpp
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Language.o src/Language.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
