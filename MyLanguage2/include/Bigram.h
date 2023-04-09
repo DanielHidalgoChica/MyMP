@@ -55,7 +55,7 @@ public:
      * @param text the text for the bigram. Input parameter 
      */    
 
-    Bigram(const char text[]);
+    Bigram(char text[]);
     
     /**
      * @brief Obtains a copy of the text of this bigram as a string object

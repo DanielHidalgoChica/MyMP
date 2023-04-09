@@ -26,12 +26,8 @@ Bigram::Bigram (char first, char second) {
     _text[2] = '\0';
 }
 
-Bigram::Bigram (const char text[]) {
-    if (strlen(text) == 2) {
-        strcpy(_text, text);
-    } else {
-        strcpy(_text, "__");
-    }
+Bigram::Bigram (char text[]) {
+    strcpy(_text, text);
 }
 
 string Bigram::getText() const {
