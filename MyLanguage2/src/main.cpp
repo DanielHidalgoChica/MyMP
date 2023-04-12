@@ -1,12 +1,12 @@
 /*
- * Metodología de la Programación: Language2
+ * Metodolog?a de la Programaci?n: Language2
  * Curso 2022/2023
  */
 
 /* 
  * File:   main.cpp
  * @author Silvia Acid Carrillo <acid@decsai.ugr.es>
- * @author Andrés Cano Utrera <acu@decsai.ugr.es>
+ * @author Andr?s Cano Utrera <acu@decsai.ugr.es>
  * @author Luis Castillo Vidal <L.Castillo@decsai.ugr.es>
  *
  * Created on 7 de febrero de 2023, 14:02
@@ -45,54 +45,41 @@ void showEnglishHelp(ostream& outputStream) {
  */
 int main(int argc, char* argv[]) {
     
-//    Language language;
-    ifstream inputStream;
-    
-    string cadena_magica;
-    string language_id;
-    string bigram_str;
-    int frequency;
-    
-    int bigram_c;
+    // Control the number of arguments
     
     if(argc < 3) {
         showEnglishHelp(cerr);
         return (1);
     }
+        
+    // We join all the input .bgr files in one language object
     
-    // To esto paece que va pal método open (o load, idk)
+    // Object that we'll modify; final output
+    Language treated;
     
-    for (int i = 1; i < argc-1; i++) {
+    treated.load(argv[1]);
+    
+    string language_out = treated.getLanguageId();
+    
+    // Auxiliary Language object to join other input files (if any)
+    
+    for (int i = 2; i <= (argc-2); i++) {
+        Language reading;
+        reading.load(argv[i]);
         
-        cout << " Fichero de entrada: "<< argv[i] << endl;
-        
-        inputStream.open(argv[i]);
-        
-        if(inputStream) {
-            inputStream >> cadena_magica;
-            cout << '\n' << cadena_magica;
-            inputStream >> language_id;
-            cout << '\n' << language_id;
-            inputStream >> bigram_c;
-            cout << '\n' << bigram_c;
-        } else {
-            // throw... creo
-        }
-        
-        for (int j = 0; j < bigram_c; j++) {
-            inputStream >> bigram_str;
-            inputStream >> frequency;
-            
-            cout << bigram_str << ' ' << to_string(frequency) << '\n';
-        }
-        
-        inputStream.close();
+        if (reading.getLanguageId() == language_out) treated.join(reading);
 
-        
     }
     
-//    language.load(argv[1]);
+  
+    // We sort the joined files
+    
+    treated.sort();
+    
+    // We save the joined files in the output file
+    
+    treated.save(argv[argc-1]);
     
     return (0);
-}
 
+}
