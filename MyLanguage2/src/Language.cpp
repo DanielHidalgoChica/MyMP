@@ -43,7 +43,7 @@ Language::Language(int numberBigrams) : _languageId("unknown"), _size(0)
 
 const string & Language::getLanguageId() const {return _languageId;}
 
-void Language::setLanguageId(string id) {_languageId = id;}
+void Language::setLanguageId(const string& id) {_languageId = id;}
 
 const BigramFreq & Language::at(int index) const {
     bool wrong_index = index < 0 || index >= _size;
