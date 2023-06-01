@@ -20,14 +20,16 @@ using namespace std;
 
 const string Language::MAGIC_STRING_T="MP-LANGUAGE-T-1.0";
 
-Language::Language() : _languageId("unknown"), _size(0), _vectorBigramFreq (nullptr) {} /////////////////////////////////////////////////////////////
+Language::Language() : _languageId("unknown"), _size(0), _vectorBigramFreq(nullptr) {}
 
-Language::Language(int numberBigrams) : _languageId("unknown"), _size(0) /////////////////////////////////////////////////////////////
+Language::Language(const int numberBigrams) : _languageId("unknown")
 {
-    if (numberBigrams < 0 || numberBigrams > DIM_VECTOR_BIGRAM_FREQ)
-        throw std::out_of_range("In constructor: too many Bigrams");
-    else {
-        _size = numberBigrams;
+    if (numberBigrams < 0) {
+        string MSG_EXC = "In Method \"const BigramFreq & Language::Language(const int numberBigrams)\""
+                               " negative number of bigrams";
+        throw std::out_of_range(MSG_EXC);
+    } else {
+        allocate(numberBigrams);
     }
 }
 
@@ -164,15 +166,13 @@ void Language::save(const char fileName[]) const {
         throw std::ios_base::failure(MSG_EXC);
     }
     
-    outputStream << toString();
+    outputStream << this->toString();
     
     outputStream.close();
 }
 
 void Language::load(const char fileName[]) {
-    
-    
-    if (_vectorBigramFreq != nullptr) delete [] _vectorBigramFreq; // Liberamos la memoria dinámica
+    deallocate();
     
     ifstream inputStream;
     
@@ -197,15 +197,18 @@ void Language::load(const char fileName[]) {
         throw std::invalid_argument(MSG_EXC);
     } 
     
-    // We read the language
+    // We read the languageID
 
     inputStream >> _languageId;
 
     // We read the number of Bigrams
+    deallocate();
 
     inputStream >> _size;
+    allocate(_size); // Reserve memory for _size BigramFreqs
+ 
 
-    if (_size > DIM_VECTOR_BIGRAM_FREQ || _size < 0) {
+    if (_size < 0) {
         string MSG_EXC = "In method \"void Language::load("
         "const char fileName[])\": Too many or negative BigramFreqs";
         throw std::out_of_range(MSG_EXC);
@@ -233,27 +236,17 @@ void Language::load(const char fileName[]) {
 
 
 void Language::append(const BigramFreq& bigramFreq) {
-    
-    // Hay que aunmentar el tamaño del array dinámico
-    
-    
+        
     int pos_bigram = findBigram(bigramFreq.getBigram());
-    bool full_array = (_size == DIM_VECTOR_BIGRAM_FREQ);
-    
+
     if (pos_bigram >= 0) {
         int new_freq = _vectorBigramFreq[pos_bigram].getFrequency() + bigramFreq.getFrequency();
         _vectorBigramFreq[pos_bigram].setFrequency(new_freq);
     }
-    else 
-        if (!full_array) {
-            _vectorBigramFreq[_size] = bigramFreq;
-            _size++;
-        }
-        else {
-            string MSG_EXC = "In method \"void Language::append("
-            "const char fileName[])\": too many bigramFreqs";
-            throw std::out_of_range(MSG_EXC);
-        }
+    else  {
+        reallocate(_size+1);
+        _vectorBigramFreq[_size-1] = bigramFreq;
+    }
 }
 
 void Language::join(const Language& language) {
@@ -262,16 +255,69 @@ void Language::join(const Language& language) {
     }
 }
 
-Language(const Language& orig);
+void Language::allocate(int nElements)
+{
+    _vectorBigramFreq = new BigramFreq[nElements];
+    _size = nElements;
+}
+
+void Language::deallocate() 
+{
+    delete [] this->_vectorBigramFreq;
+    _vectorBigramFreq = nullptr;
+    _size = 0;
+}
+
+void Language::reallocate(int newSize) {
+    
+    if (newSize >= 0) {
+        BigramFreq * bf_ptr = new BigramFreq[newSize];
+
+        for (int i = 0; i < newSize && i < this->_size; i++)
+            bf_ptr[i] = this->_vectorBigramFreq[i];
+
+        this->deallocate();
+        this->_vectorBigramFreq = bf_ptr;
+        this->_size = newSize;
+    }
+}
+
+void Language::copy(const Language& otherLanguage){
+        
+    this->_languageId = otherLanguage._languageId;
+    this->_size = otherLanguage._size;
+        
+    for (int i = 0; i < _size; i++)
+        this->_vectorBigramFreq[i] = otherLanguage._vectorBigramFreq[i];
+} 
+
+Language::Language(const Language& orig) {
+  this->allocate(orig._size);
+  this->copy(orig);
+}
+
+
+
 
 /**
  * @brief Destructor of class Language
  */
-~Language();
+Language::~Language() {
+    deallocate();
+}
 
 /**
  * @brief Overloading of the assignment operator for Language class
  * @param orig the Language object used as source for the assignment
  * @return A reference to this object
  */
-Language& operator=(const Language& orig);
+Language & Language::operator=(const Language& orig) {
+    
+    if (&orig != this) {
+        this->deallocate();
+        this->allocate(orig._size);
+        this->copy(orig);
+    }
+    
+    return(*this);
+}

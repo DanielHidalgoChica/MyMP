@@ -1,5 +1,5 @@
 /*
- * Metodología de la Programación: Language4
+ * Metodología de la Programación: Language3
  * Curso 2022/2023
  */
 
@@ -87,7 +87,7 @@ public:
     char& at(int index);
     
     /**
-     * Converts lowercase letters in this bigram to uppercase. Modifier method
+     * Converts lowercase letters in this bigram to uppercase
      */
     void toUpper();
  

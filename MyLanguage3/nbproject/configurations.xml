@@ -4,8 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>include/Bigram.h</itemPath>
-      <itemPath>include/BigramFreq.h</itemPath>
+      <itemPath>../MyLanguage4/include/Bigram.h</itemPath>
+      <itemPath>../MyLanguage4/include/BigramFreq.h</itemPath>
       <itemPath>include/Language.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -48,9 +48,12 @@
           </incDir>
         </ccTool>
       </compileType>
-      <item path="include/Bigram.h" ex="false" tool="3" flavor2="0">
+      <item path="../MyLanguage4/include/Bigram.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/BigramFreq.h" ex="false" tool="3" flavor2="0">
+      <item path="../MyLanguage4/include/BigramFreq.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/Language.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -84,9 +87,12 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="include/Bigram.h" ex="false" tool="3" flavor2="0">
+      <item path="../MyLanguage4/include/Bigram.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/BigramFreq.h" ex="false" tool="3" flavor2="0">
+      <item path="../MyLanguage4/include/BigramFreq.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/Language.h" ex="false" tool="3" flavor2="0">
       </item>
