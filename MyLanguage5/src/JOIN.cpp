@@ -3,6 +3,9 @@
  * Curso 2022/2023
  */
 
+using namespace std;
+#include <iostream>
+
 /** 
  * @file JOIN.cpp
  * @author Silvia Acid Carrillo <acid@decsai.ugr.es>

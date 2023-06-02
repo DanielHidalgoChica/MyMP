@@ -128,22 +128,16 @@ void Language::sort() {
 
     for (int left = 0; left < _size - 1; left++) {
 
-        int max_freq = _vectorBigramFreq[left].getFrequency();
+        BigramFreq max_bf = _vectorBigramFreq[left];
         int pos_max = left;
 
         bool swap_needed = false;
 
         for (int i = left + 1; i < _size; i++) {
-
-            bool new_max = _vectorBigramFreq[i].getFrequency() > max_freq || ((_vectorBigramFreq[i].getFrequency()
-                    == max_freq && _vectorBigramFreq[i].getBigram().getText()
-                    < _vectorBigramFreq[pos_max].getBigram().getText()));
-
-            if (new_max) {
-
+            
+            if (_vectorBigramFreq[i] > max_bf) {
                 swap_needed = true;
-
-                max_freq = _vectorBigramFreq[i].getFrequency();
+                max_bf = _vectorBigramFreq[i];
                 pos_max = i;
             }
         }
@@ -268,7 +262,7 @@ void Language::deallocate()
 
 void Language::reallocate(int newSize) {
     
-    if (newSize >= 0) {
+    if (newSize >= 0) { 
         BigramFreq * bf_ptr = new BigramFreq[newSize];
 
         for (int i = 0; i < newSize && i < this->_size; i++)
@@ -319,4 +313,75 @@ Language & Language::operator=(const Language& orig) {
     }
     
     return(*this);
+}
+
+Language Language::operator+=(Language language) {
+    for (int i = 0; i < language._size; i++) 
+        append(language._vectorBigramFreq[i]);
+    return (*this);
+}
+
+BigramFreq & Language::operator[](int index)
+{
+    return _vectorBigramFreq[index];
+}
+
+const BigramFreq & Language::operator[](int index) const
+{
+    return _vectorBigramFreq[index];
+}
+
+ostream& operator<<(ostream &os, const Language& language)
+{
+    os << language.toString();
+    return os;
+}
+
+istream& operator>>(istream &is, Language& language)
+{
+    string languageId;
+    int size;
+    string MAGIC_STRING_T = language.MAGIC_STRING_T;
+  
+    string poss_magic_string;
+    is >> poss_magic_string;
+    
+    if (poss_magic_string != MAGIC_STRING_T) {
+        string MSG_EXC = "In method \"void Language::load("
+        "const char fileName[])\": Invalid magic string";
+        throw std::invalid_argument(MSG_EXC);
+    } 
+
+    // We read the languageID
+
+    is >> languageId;
+    language.setLanguageId(languageId);
+
+    // We read the number of Bigrams
+    language.deallocate();
+
+    is >> size; 
+    language._size = size;
+
+    if (size < 0) {
+        string MSG_EXC = "In method \"void Language::load("
+        "const char fileName[])\": Too many or negative BigramFreqs";
+        throw std::out_of_range(MSG_EXC);
+    }
+    
+    language.allocate(size); // Reserve memory for _size BigramFreqs
+
+    string aux_bgr_str;
+    int aux_freq;
+    
+    for (int i = 0; i < size; i++) {
+        
+        BigramFreq aux_bf;
+  
+        is >> aux_bf;
+        
+        language._vectorBigramFreq[i] = aux_bf;
+    }
+    
+    return (is);
 }

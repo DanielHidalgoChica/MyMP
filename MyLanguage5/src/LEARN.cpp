@@ -3,6 +3,10 @@
  * Curso 2022/2023
  */
 
+#include <iostream>
+
+using namespace std;
+
 /** 
  * @file LEARN.cpp
  * @author Silvia Acid Carrillo <acid@decsai.ugr.es>

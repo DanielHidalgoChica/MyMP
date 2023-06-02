@@ -13,9 +13,8 @@
  */
 
 #include <fstream>
-
-#include "BigramCounter.h"
 #include <string>
+#include "BigramCounter.h"
 
 using namespace std;
 
@@ -176,6 +175,7 @@ void BigramCounter::calculateFrequencies(const char* filename)
     char next;
     iStream.get(next);
     
+    Bigram aux_bgr;
     while (iStream.good()) {
         
         bool actual_valid = isValidCharacter(actual,this->_validCharacters);
@@ -183,7 +183,8 @@ void BigramCounter::calculateFrequencies(const char* filename)
         bool both_valid = actual_valid && next_valid;
         
         if (both_valid) {
-            Bigram aux_bgr(actual,next);           
+            aux_bgr.at(1) = actual;
+            aux_bgr.at(2) = next;
             this->increaseFrequency(aux_bgr);
         } 
         
@@ -194,13 +195,35 @@ void BigramCounter::calculateFrequencies(const char* filename)
     iStream.close();
 }
 
+Language BigramCounter::toLanguage()
+{
+    Language ret_lan;
+    
+    int len = this->getSize();
+    string val_chars = this->_validCharacters;
+    
+    for (int i = 0; i < len; i++) 
+    {
+        for (int j = 0; j < len; j++)
+        {
+            if (this->_frequency[i][j] > 0)
+            {
+                Bigram aux_bgr(val_chars.at(i),val_chars.at(j));
+                BigramFreq aux_bf;
+                
+                aux_bf.setBigram(aux_bgr);
+                aux_bf.setFrequency(this->_frequency[i][j]);
+                
+                ret_lan.append(aux_bf);
+            }
+        }
+    }
+    
+    return(ret_lan);
+}
 
 const int& BigramCounter::operator()(int row, int column) const
 {
-//    int len = this->_validCharacters;
-//    
-//    bool good_pos = (row < len && column < len);
-
     return (this->_frequency[row][column]);
 }
 

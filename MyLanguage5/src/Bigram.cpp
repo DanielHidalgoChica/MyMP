@@ -87,16 +87,7 @@ void Bigram::toUpper () {
 }
 
 void Bigram::serialize(ostream& outputStream) {
-    // Create an aux array with 
-    // just the two first characters (not the '\0')
-    
-    char aux_arr[2];
-    aux_arr[0] = this->at(0);
-    aux_arr[1] = this->at(1);
-    
-    // We send the array of size 2 to the stream
-    
-    outputStream.write(aux_arr,sizeof(char)*2);
+    outputStream.write(_text,sizeof(char)*2);
 }
 
 void Bigram::deserialize(istream& inputStream) {
@@ -104,6 +95,7 @@ void Bigram::deserialize(istream& inputStream) {
     inputStream.read(aux_arr,sizeof(char)*2);
     this->at(0) = aux_arr[0];
     this->at(1) = aux_arr[1];
+    _text[2] = '\0';
 
 }
 
@@ -112,10 +104,11 @@ ostream& operator<<(ostream & os, const Bigram& bigram) {
     return os;
 }
 
-istream& operator>>(istream& is, const Bigram&  bigram) {
+istream& operator>>(istream& is, Bigram& bigram) {
     string aux_str;   
     is >> aux_str;
-    bigram=Bigram(aux_str);
+    
+    bigram=Bigram(aux_str.c_str());
         
     return is;
 }

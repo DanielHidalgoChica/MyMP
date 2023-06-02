@@ -16,7 +16,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/Bigram.cpp</itemPath>
       <itemPath>src/BigramCounter.cpp</itemPath>
+      <itemPath>src/BigramFreq.cpp</itemPath>
       <itemPath>src/Language.cpp</itemPath>
       <itemPath>src/metamain.cpp</itemPath>
     </logicalFolder>
@@ -56,7 +58,11 @@
       </item>
       <item path="include/Language.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bigram.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BigramCounter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BigramFreq.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Language.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -76,6 +82,8 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>11</standard>
+          <commandlineTool>g++</commandlineTool>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -92,7 +100,11 @@
       </item>
       <item path="include/Language.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bigram.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BigramCounter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BigramFreq.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Language.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -125,7 +137,11 @@
       </item>
       <item path="include/Language.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bigram.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BigramCounter.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/BigramFreq.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Language.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -158,7 +174,11 @@
       </item>
       <item path="include/Language.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bigram.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BigramCounter.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/BigramFreq.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Language.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -191,7 +211,11 @@
       </item>
       <item path="include/Language.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Bigram.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BigramCounter.cpp" ex="false" tool="1" flavor2="11">
+      </item>
+      <item path="src/BigramFreq.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Language.cpp" ex="false" tool="1" flavor2="0">
       </item>

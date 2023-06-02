@@ -43,22 +43,32 @@ std::string BigramFreq::toString() const {
 }
 
 void BigramFreq::serialize(ostream& outputStream) {
-//    this->_bigram.serialize();
-//    ostream::write()
+    this->_bigram.serialize(outputStream);
+    outputStream.write(reinterpret_cast<const char *>(&(this->_frequency)),sizeof(int));
 }
 
-void BigramFreq::deserialize(istream& outputStream) {
-    
+void BigramFreq::deserialize(istream& inputStream) {
+    this->_bigram.deserialize(inputStream);
+    inputStream.read(reinterpret_cast<char *>(&(this->_frequency)),sizeof(int));
 }
 
 ostream& operator<<(std::ostream& os,const BigramFreq & bigramFreq)
 {
-    
+    os << bigramFreq.toString();
+    return (os);
 }
 
 istream& operator>>(std::istream& is, BigramFreq& bigramFreq)
 {
+    string aux_str;
+    is >> aux_str;
+    bigramFreq.setBigram(Bigram(aux_str));
     
+    int aux_int;
+    is >> aux_int;
+    bigramFreq.setFrequency(aux_int);
+    
+    return(is);
 }
 
 bool operator>(const BigramFreq& bigramFreq1,const BigramFreq& bigramFreq2)
@@ -78,9 +88,9 @@ bool operator<(const BigramFreq& bigramFreq1,const BigramFreq& bigramFreq2)
     return bigramFreq2 > bigramFreq1;
 }
 
-bool operator==(BigramFreq bigramFreq1, BigramFreq bigramFreq2)
+bool operator==(const BigramFreq& bigramFreq1, const BigramFreq& bigramFreq2)
 {
-    return !((bigramFreq1 > bigramFreq2) || (bigramFreq1 < bigramFreq2s))
+    return !((bigramFreq1 > bigramFreq2) || (bigramFreq1 < bigramFreq2));
 }
 
 bool operator!=(const BigramFreq& bigramFreq1, const BigramFreq& bigramFreq2)
@@ -88,7 +98,7 @@ bool operator!=(const BigramFreq& bigramFreq1, const BigramFreq& bigramFreq2)
    return !(bigramFreq1==bigramFreq2);
 }
 
-bool operator<=(const BigramFreq& bigramFreq1, const BigramFreq& bigramFreq2)
+bool operator>=(const BigramFreq& bigramFreq1, const BigramFreq& bigramFreq2)
 {
     return (bigramFreq1 > bigramFreq2) || (bigramFreq1==bigramFreq2);
 }
